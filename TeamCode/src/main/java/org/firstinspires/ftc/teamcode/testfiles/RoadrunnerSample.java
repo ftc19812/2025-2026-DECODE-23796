@@ -14,8 +14,9 @@ import org.firstinspires.ftc.teamcode.subsystems.RRIntakeSample;
 
 @Autonomous(name = "Roadrunner Test")
 public class RoadrunnerSample extends LinearOpMode {
+
     Pose2d initialPos = new Pose2d(0,0,Math.toRadians(90));
-    MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
+
 //    RRIntakeSample intake = new RRIntakeSample(hardwareMap);
 
 
@@ -24,6 +25,7 @@ public class RoadrunnerSample extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
         // this is where the init goes
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPos)
                 .lineToX(24)
