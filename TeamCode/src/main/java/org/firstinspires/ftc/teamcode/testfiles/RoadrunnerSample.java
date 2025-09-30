@@ -12,11 +12,11 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import org.firstinspires.ftc.teamcode.drivelocalizers.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.RRIntakeSample;
 
-@Autonomous(name = "Roadrunner Test", group = "Test")
+@Autonomous(name = "Roadrunner Test")
 public class RoadrunnerSample extends LinearOpMode {
     Pose2d initialPos = new Pose2d(0,0,Math.toRadians(90));
     MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
-    RRIntakeSample intake = new RRIntakeSample(hardwareMap);
+//    RRIntakeSample intake = new RRIntakeSample(hardwareMap);
 
 
 
@@ -46,8 +46,8 @@ public class RoadrunnerSample extends LinearOpMode {
             Actions.runBlocking(
                     new SequentialAction(
                             new ParallelAction(
-                                    tab1.build(),
-                                    intake.setPowerRR(1.0)
+                                    tab1.build()
+//                                    intake.setPowerRR(1.0)
                             ),
                             tab2.build(),
                             tab3.build()
