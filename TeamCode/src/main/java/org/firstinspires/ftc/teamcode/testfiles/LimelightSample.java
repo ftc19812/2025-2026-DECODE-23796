@@ -71,13 +71,15 @@ import java.util.List;
 public class LimelightSample extends OpMode {
 
     private LimelightManager limelight;
-
+    private Limelight3A limelightcam;
     @Override
     public void init() {
         limelight = new LimelightManager(hardwareMap.get(Limelight3A.class, "limelight"), telemetry);
+        limelightcam = hardwareMap.get(Limelight3A.class, "limelight");
         telemetry.setMsTransmissionInterval(11);
         // i think 8 is April Tags? We won't really know until we check, anyway
-        limelight.pipelineSwitch(8);
+        limelight.pipelineSwitch(0);
+        limelightcam.pipelineSwitch(0);
 
         telemetry.addData(">", "Robot Ready.  Press Play.");
         telemetry.update();
@@ -86,10 +88,11 @@ public class LimelightSample extends OpMode {
     public void start() {
         // put this in init during competition so auto doesn't die
         limelight.start();
+        limelightcam.start();
     }
     @Override
     public void loop() {
-        LLResult result = limelight.getLatestResult();
+        LLResult result = limelightcam.getLatestResult();
         LLStatus status = limelight.getStatus();
 //        limelight.telemetryStatus(status);
 
@@ -116,6 +119,7 @@ public class LimelightSample extends OpMode {
 
         } else {
             telemetry.addData("Limelight", "No data available");
+            telemetry.addData("Limelight Version", limelightcam.getVersion());
         }
     }
     @Override

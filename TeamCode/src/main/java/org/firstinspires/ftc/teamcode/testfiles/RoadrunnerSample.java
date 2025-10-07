@@ -29,24 +29,19 @@ public class RoadrunnerSample extends LinearOpMode {
     @Override
     public void runOpMode() {
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
-        // this is where the init goes
-//        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPos)
-//                .lineToX(24)
-//                .waitSeconds(1)
-//                .lineToY(24)
-//                .waitSeconds(1)
-//                .lineToX(-24)
-//                .waitSeconds(1)
-//                .lineToY(-24);
-        TrajectoryActionBuilder tab2 = drive.actionBuilder(new Pose2d(0,0,Math.toRadians(90)))
-                .strafeToConstantHeading(new Vector2d(20,20))
-                .strafeToConstantHeading(new Vector2d(-50,20));
-        TrajectoryActionBuilder tab3 = drive.actionBuilder(new Pose2d(48,48,Math.toRadians(90)))
-                .splineTo(new Vector2d(-48,-48), Math.toRadians(180))
-                .strafeTo(new Vector2d(50,50))
-                .strafeToConstantHeading(new Vector2d(0,0))
-                .splineToConstantHeading(new Vector2d(45,100), Math.toRadians(10))
-                .strafeToLinearHeading(new Vector2d(120,40), Math.toRadians(180));
+
+
+        TrajectoryActionBuilder trajectory = drive.actionBuilder(new Pose2d(24,12,Math.toRadians(90)))
+                .strafeToLinearHeading(new Vector2d(36,36), Math.toRadians(0))
+                .strafeTo(new Vector2d(25,25))
+                .strafeToLinearHeading(new Vector2d(36,38), Math.toRadians(45));
+
+        TrajectoryActionBuilder myTrajectory = drive.actionBuilder(new Pose2d(36,12,Math.toRadians(90)))
+                .strafeToLinearHeading(new Vector2d(36,84), Math.toRadians(75));
+
+
+
+
 
         telemetry.addData("Status", "initialized");
         telemetry.addData("Moment of Truth", "ARE YOU READY???");
@@ -57,14 +52,12 @@ public class RoadrunnerSample extends LinearOpMode {
             looped = true;
             Actions.runBlocking(
                     new SequentialAction(
-//                            new ParallelAction(
-//                                    tab1.build()
-////                                    intake.setPowerRR(1.0)
-//                            ),
-                            tab2.build()
-//                            tab3.build()
+
+                            myTrajectory.build()
+//
                     )
             );
+
         }
     }
 }
