@@ -79,7 +79,6 @@ public class LimelightSample extends OpMode {
         telemetry.setMsTransmissionInterval(11);
         // i think 8 is April Tags? We won't really know until we check, anyway
         limelight.pipelineSwitch(0);
-        limelightcam.pipelineSwitch(0);
 
         telemetry.addData(">", "Robot Ready.  Press Play.");
         telemetry.update();
@@ -88,11 +87,10 @@ public class LimelightSample extends OpMode {
     public void start() {
         // put this in init during competition so auto doesn't die
         limelight.start();
-        limelightcam.start();
     }
     @Override
     public void loop() {
-        LLResult result = limelightcam.getLatestResult();
+        LLResult result = limelight.getLatestResult();
         LLStatus status = limelight.getStatus();
 //        limelight.telemetryStatus(status);
 
@@ -103,23 +101,33 @@ public class LimelightSample extends OpMode {
                 telemetry.addData("April Tags", "returned nothing");
             } else if (AprilTagID == 20) {
                 // do whatever 20 does
+                telemetry.addData("April Tag Detected", 20);
             } else if (AprilTagID == 21) {
                 // do whatever 21 does
+                telemetry.addData("April Tag Detected", 21);
             } else if (AprilTagID == 22) {
                 // do whatever 22 does
+                telemetry.addData("April Tag Detected", 22);
             } else if (AprilTagID == 23) {
                 // do whatever 23 does
+                telemetry.addData("April Tag Detected", 23);
             } else if (AprilTagID == 24) {
                 // do whatever 24 does
+                telemetry.addData("April Tag Detected", 24);
             } else if (AprilTagID == 25) {
                 // do whatever 25 does
+                telemetry.addData("April Tag Detected", 25);
             } else {
                 // if anything else, lol
             }
 
         } else {
             telemetry.addData("Limelight", "No data available");
-            telemetry.addData("Limelight Version", limelightcam.getVersion());
+            telemetry.addData("Version", limelightcam.getVersion());
+            telemetry.addData("Is Connected", limelightcam.isConnected());
+            telemetry.addData("Is Running", limelightcam.isRunning());
+            telemetry.addData("Connection Info", limelightcam.getConnectionInfo());
+            telemetry.addData("Device Name", limelightcam.getDeviceName());
         }
     }
     @Override
