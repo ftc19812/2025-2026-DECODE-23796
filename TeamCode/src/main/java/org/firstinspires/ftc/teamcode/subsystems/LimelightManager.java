@@ -102,6 +102,20 @@ public final class LimelightManager {
         return 404;
     }
 
+    public boolean ScanAndGetAprilTagID(int TagID) {
+        LLResult result = getLatestResult();
+        if (result.isValid()) {
+            int ScannedID = getAprilTagID(result);
+            return ScannedID == TagID;
+        }
+        return false;
+    }
+
+    public int ScanAndGetAprilTagID() {
+        LLResult result = getLatestResult();
+        return getAprilTagID(result);
+    }
+
     public void telemetryStatus(LLStatus status) {
         telemetry.addData("Name", "%s",
                 status.getName());
