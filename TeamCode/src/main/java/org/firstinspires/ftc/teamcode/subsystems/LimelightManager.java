@@ -20,8 +20,8 @@ I don't know what I'm doing, if it wasn't obvious already.
 And yes, I did make all of this by myself with no help whatsoever.
 You can tell by the terrible code scattered across this. Might as well be considered
 a war crime to be honest.
-
 */
+
 public final class LimelightManager {
 
     private Limelight3A hardware;

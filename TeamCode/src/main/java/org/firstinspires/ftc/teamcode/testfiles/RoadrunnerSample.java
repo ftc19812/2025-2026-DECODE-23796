@@ -81,6 +81,9 @@ public class RoadrunnerSample extends LinearOpMode {
                 .strafeTo(new Vector2d(36, 10))
                 .strafeToLinearHeading(new Vector2d(36, 48), Math.toRadians(90))
                 ;
+        TrajectoryActionBuilder stupidTrajectory = drive.actionBuilder(new Pose2d(72, 72, Math.toRadians(90)));
+
+
 
 
 
@@ -97,71 +100,14 @@ public class RoadrunnerSample extends LinearOpMode {
                         initialTrajectory.build()
                 )
         );
-        LLResult results = limelight.getLatestResult();
-        if (results.isValid()) {
-            int AprilTag = limelight.getAprilTagID(results);
-            telemetry.addData("Result", "Valid");
-
-            if (AprilTag != 404) {
-                Actions.runBlocking(
-                        new SequentialAction(
-                                trajectoryIfAprilTag.build() // brings it to the center of the field
-                                // facing 90 deg.
-//
-                        )
-                );
-            }
-        } else {
-            telemetry.addData("Result", "Invalid");
+        if (limelight.ScanAndGetAprilTagID(23)) {
             Actions.runBlocking(
                     new SequentialAction(
-                            trajectoryIfNotAprilTag.build() // brings it to the center of the field
-                            // facing 90 deg.
-//
+
                     )
             );
-            telemetry.addData("Limelight", "was not found");
-            telemetry.update();
+        } else {
+
         }
-//        while (opModeIsActive() && loop == 1) {
-//            loop+=1;
-//            telemetry.addLine("Update 1");
-//            telemetry.update();
-//            Actions.runBlocking(
-//                    new SequentialAction(
-//                            coolTrajectory.build()
-//                    )
-//            );
-//            telemetry.addLine("Update 2");
-//            telemetry.update();
-//
-            /*
-            LLResult results = limelight.getLatestResult();
-            if (results.isValid()) {
-                int AprilTag = limelight.getAprilTagID(results);
-                if (AprilTag != 404) {
-                    Actions.runBlocking(
-                            new SequentialAction(
-                                    trajectoryIfAprilTag.build() // brings it to the center of the field
-                                    // facing 90 deg.
-//
-                            )
-                    );
-                }
-            } else {
-                Actions.runBlocking(
-                        new SequentialAction(
-                                trajectoryIfNotAprilTag.build() // brings it to the center of the field
-                                // facing 90 deg.
-//
-                        )
-                );
-                telemetry.addData("Limelight", "was not found");
-                telemetry.update();
-            }
-//            */
-//
-//
-//        }
     }
 }
