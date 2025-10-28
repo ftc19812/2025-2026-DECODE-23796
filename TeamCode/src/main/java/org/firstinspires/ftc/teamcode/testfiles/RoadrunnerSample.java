@@ -81,8 +81,12 @@ public class RoadrunnerSample extends LinearOpMode {
                 .strafeTo(new Vector2d(36, 10))
                 .strafeToLinearHeading(new Vector2d(36, 48), Math.toRadians(90))
                 ;
-        TrajectoryActionBuilder stupidTrajectory = drive.actionBuilder(new Pose2d(72, 72, Math.toRadians(90)));
-
+        TrajectoryActionBuilder stupidTrajectory = drive.actionBuilder(new Pose2d(72, 72, Math.toRadians(90)))
+        .strafeToLinearHeading(new Vector2d(72, 24), Math.toRadians(180))
+        .strafeToLinearHeading(new Vector2d(144, 144), Math.toRadians(0))
+                .strafeToLinearHeading(new Vector2d(96, 36), Math.toRadians(90))
+                        .turn(Math.toRadians(360*400))
+                .waitSeconds(0.5)  ;
 
 
 
@@ -103,7 +107,7 @@ public class RoadrunnerSample extends LinearOpMode {
         if (limelight.ScanAndGetAprilTagID(23)) {
             Actions.runBlocking(
                     new SequentialAction(
-
+                            stupidTrajectory.build()
                     )
             );
         } else {
