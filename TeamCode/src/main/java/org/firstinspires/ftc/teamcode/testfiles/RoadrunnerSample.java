@@ -10,6 +10,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.drivelocalizers.MecanumDrive;
 import org.firstinspires.ftc.teamcode.subsystems.LimelightManager;
@@ -20,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Vector;
 
 @Autonomous(name = "Roadrunner Test")
-public class RoadrunnerSample extends LinearOpMode {
+public class RoadrunnerSample extends OpMode {
 
     private static final Logger log = LoggerFactory.getLogger(RoadrunnerSample.class);
     Pose2d initialPos = new Pose2d(12,12,Math.toRadians(0));
@@ -28,90 +29,30 @@ public class RoadrunnerSample extends LinearOpMode {
 //    RRIntakeSample intake = new RRIntakeSample(hardwareMap);
     Limelight3A limelightcam;
     LimelightManager limelight;
-
-
-
-
+    MecanumDrive drive;
+    TrajectoryActionBuilder trajectory;
     @Override
-    public void runOpMode() {
+    public void init() {
         limelightcam = hardwareMap.get(Limelight3A.class, "limelight");
         limelight = new LimelightManager(limelightcam, telemetry);
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
-
-
-        TrajectoryActionBuilder trajectory = drive.actionBuilder(new Pose2d(24,12,Math.toRadians(90)))
+        drive = new MecanumDrive(hardwareMap, initialPos);
+        trajectory = drive.actionBuilder(new Pose2d(24,12,Math.toRadians(90)))
                 .strafeToLinearHeading(new Vector2d(36,36), Math.toRadians(0))
                 .strafeTo(new Vector2d(25,25))
                 .strafeToLinearHeading(new Vector2d(36,38), Math.toRadians(45));
-        // initial pos is 12,12,0
-        TrajectoryActionBuilder initialTrajectory = drive.actionBuilder(new Pose2d(12,12,Math.toRadians(0)))
-                .strafeToLinearHeading(new Vector2d(36,12), Math.toRadians(90))
-                .waitSeconds(1)
-                ;
-
-        TrajectoryActionBuilder trajectoryIfAprilTag = drive.actionBuilder(new Pose2d(36,12,Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(12,60), Math.toRadians(180))
-                .turn(Math.toRadians(1080))
-                .strafeTo(new Vector2d(12, 50))
-                .splineTo(new Vector2d(30,60), Math.toRadians(75))
-                ;
-        TrajectoryActionBuilder trajectoryIfNotAprilTag = drive.actionBuilder(new Pose2d(36,12,Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(60,60), Math.toRadians(270))
-                .turn(Math.toRadians(1080))
-                .strafeTo(new Vector2d(30, 50))
-                .splineTo(new Vector2d(12,60), Math.toRadians(120))
-                ;
-
-
-        TrajectoryActionBuilder amazingTrajectory = drive.actionBuilder(new Pose2d(24,10, Math.toRadians(90)))
-                .strafeToLinearHeading(new Vector2d(24, 42), Math.toRadians(180))
-                .strafeTo(new Vector2d(12, 42))
-                .turn(Math.toRadians(1080))
-                .waitSeconds(2)
-                .splineTo(new Vector2d(36, 48), Math.toRadians(0))
-                .strafeToLinearHeading(new Vector2d(12, 60 ), Math.toRadians(135));
-
-
-        TrajectoryActionBuilder coolTrajectory = drive.actionBuilder(initialPos)
-
-                .strafeToLinearHeading(new Vector2d(60, 36), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d( 10, 60), Math.toRadians(90))
-                .strafeToLinearHeading(new Vector2d( 60, 84), Math.toRadians(270))
-                .strafeTo(new Vector2d(36, 84))
-                .strafeTo(new Vector2d(36, 10))
-                .strafeToLinearHeading(new Vector2d(36, 48), Math.toRadians(90))
-                ;
-        TrajectoryActionBuilder stupidTrajectory = drive.actionBuilder(new Pose2d(72, 72, Math.toRadians(90)))
-        .strafeToLinearHeading(new Vector2d(72, 24), Math.toRadians(180))
-        .strafeToLinearHeading(new Vector2d(144, 144), Math.toRadians(0))
-                .strafeToLinearHeading(new Vector2d(96, 36), Math.toRadians(90))
-                        .turn(Math.toRadians(360*400))
-                .waitSeconds(0.5)  ;
-
-
-
-
-        telemetry.addData("Status", "initialized");
-        telemetry.addData("Moment of Truth", "ARE YOU READY???");
-        telemetry.update();
-        int loop = 1;
-        waitForStart();
-
-        if (isStopRequested()) return;
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        initialTrajectory.build()
-                )
-        );
-        if (limelight.ScanAndGetAprilTagID(23)) {
-            Actions.runBlocking(
-                    new SequentialAction(
-                            stupidTrajectory.build()
-                    )
-            );
-        } else {
-
-        }
     }
+
+    @Override
+    public void start() {
+        new Thread(() -> {
+
+        }).start();
+    }
+
+    @Override
+    public void loop() {
+
+    }
+
+
 }
