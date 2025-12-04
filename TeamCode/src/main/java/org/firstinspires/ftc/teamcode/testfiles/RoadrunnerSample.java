@@ -45,7 +45,11 @@ public class RoadrunnerSample extends OpMode {
     @Override
     public void start() {
         new Thread(() -> {
-
+            Actions.runBlocking(
+                    new SequentialAction(
+                            trajectory.build()
+                    )
+            );
         }).start();
     }
 
