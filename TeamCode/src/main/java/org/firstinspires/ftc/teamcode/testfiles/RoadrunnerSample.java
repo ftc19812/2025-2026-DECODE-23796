@@ -30,13 +30,13 @@ public class RoadrunnerSample extends OpMode {
     Limelight3A limelightcam;
     LimelightManager limelight;
     MecanumDrive drive;
-    TrajectoryActionBuilder trajectory;
+    TrajectoryActionBuilder trajectory123;
     @Override
     public void init() {
         limelightcam = hardwareMap.get(Limelight3A.class, "limelight");
         limelight = new LimelightManager(limelightcam, telemetry);
         drive = new MecanumDrive(hardwareMap, initialPos);
-        trajectory = drive.actionBuilder(new Pose2d(24,12,Math.toRadians(90)))
+        trajectory123 = drive.actionBuilder(new Pose2d(24,12,Math.toRadians(90)))
                 .strafeToLinearHeading(new Vector2d(36,36), Math.toRadians(0))
                 .strafeTo(new Vector2d(25,25))
                 .strafeToLinearHeading(new Vector2d(36,38), Math.toRadians(45));
@@ -45,11 +45,7 @@ public class RoadrunnerSample extends OpMode {
     @Override
     public void start() {
         new Thread(() -> {
-            Actions.runBlocking(
-                    new SequentialAction(
-                            trajectory.build()
-                    )
-            );
+            RunTrajectory(trajectory123);
         }).start();
     }
 
@@ -58,5 +54,12 @@ public class RoadrunnerSample extends OpMode {
 
     }
 
+    public void RunTrajectory(TrajectoryActionBuilder trajectory) {
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectory.build()
+                )
+        );
+    }
 
 }
